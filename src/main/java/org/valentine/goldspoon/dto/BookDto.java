@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class BookDto {
-    public String title;
-    public String author;
-    public int pagesNumber;
-    public String publisher;
+    private final String title;
+    private final String author;
+    private final int pagesNumber;
+    private final String publisher;
 }

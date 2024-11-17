@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class ReaderDto {
-    public String firstName;
-    public String lastName;
-    public String email;
-    public String phoneNumber;
-    public String favouriteGenre;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final String phoneNumber;
+    private final String favouriteGenre;
 }

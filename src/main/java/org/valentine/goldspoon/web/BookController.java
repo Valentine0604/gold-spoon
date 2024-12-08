@@ -48,4 +48,33 @@ public class BookController {
     public ResponseEntity<List<BookDto>> getAllBooks(){
         return new ResponseEntity<>(bookService.getAllBooks().stream().map(book -> modelMapper.map(book, BookDto.class)).toList(), HttpStatus.OK);
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getBookCount() {
+        return new ResponseEntity<>(bookService.countBooks(), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<BookDto>> findBooksByTitle(@RequestParam String title) {
+        return new ResponseEntity<>(bookService.findByTitle(title).stream()
+                .map(book -> modelMapper.map(book, BookDto.class)).toList(), HttpStatus.OK);
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<BookDto>> getAvailableBooks() {
+        return new ResponseEntity<>(bookService.getAvailableBooks().stream()
+                .map(book -> modelMapper.map(book, BookDto.class)).toList(), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{bookId}/borrow")
+    public ResponseEntity<String> borrowBook(@PathVariable Long bookId) {
+        bookService.borrowBook(bookId);
+        return new ResponseEntity<>("Book borrowed successfully", HttpStatus.OK);
+    }
+
+    @PatchMapping("/{bookId}/return")
+    public ResponseEntity<String> returnBook(@PathVariable Long bookId) {
+        bookService.returnBook(bookId);
+        return new ResponseEntity<>("Book returned successfully", HttpStatus.OK);
+    }
 }

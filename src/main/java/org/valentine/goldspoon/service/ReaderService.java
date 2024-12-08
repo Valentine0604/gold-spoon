@@ -77,4 +77,28 @@ public class ReaderService {
         return foundReaders;
     }
 
+    public long countReaders() {
+        return readerRepository.count();
+    }
+
+    public List<Reader> findByLastName(String lastName) {
+        return readerRepository.findByLastName(lastName);
+    }
+
+    public List<Reader> getActiveReaders() {
+        return readerRepository.findByActiveTrue();
+    }
+
+    public void activateReader(Long id) {
+        Reader reader = getReader(id);
+        reader.setActive(true);
+        readerRepository.save(reader);
+    }
+
+    public void blockReader(Long id) {
+        Reader reader = getReader(id);
+        reader.setActive(false);
+        readerRepository.save(reader);
+    }
+
 }

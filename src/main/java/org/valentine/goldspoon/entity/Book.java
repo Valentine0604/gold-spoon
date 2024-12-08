@@ -16,4 +16,5 @@ public class Book {
     private String author;
     private int pagesNumber;
     private String publisher;
+    private boolean available;
 }

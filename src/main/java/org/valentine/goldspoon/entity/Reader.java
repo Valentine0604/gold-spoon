@@ -17,4 +17,5 @@ public class Reader {
     private String email;
     private String phoneNumber;
     private String favouriteGenre;
+    private boolean active;
 }

@@ -47,5 +47,34 @@ public class ReaderController {
     public ResponseEntity<List<ReaderDto>> getAllReaders() {
         return new ResponseEntity<>(readerService.getAllReaders().stream().map(reader -> modelMapper.map(reader, ReaderDto.class)).toList(), HttpStatus.OK);
     }
+    @GetMapping("/count")
+    public ResponseEntity<Long> getReaderCount() {
+        return new ResponseEntity<>(readerService.countReaders(), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ReaderDto>> findReadersByLastName(@RequestParam String lastName) {
+        return new ResponseEntity<>(readerService.findByLastName(lastName).stream()
+                .map(reader -> modelMapper.map(reader, ReaderDto.class)).toList(), HttpStatus.OK);
+    }
+
+    @GetMapping("/active")
+    public ResponseEntity<List<ReaderDto>> getActiveReaders() {
+        return new ResponseEntity<>(readerService.getActiveReaders().stream()
+                .map(reader -> modelMapper.map(reader, ReaderDto.class)).toList(), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{readerId}/activate")
+    public ResponseEntity<String> activateReader(@PathVariable Long readerId) {
+        readerService.activateReader(readerId);
+        return new ResponseEntity<>("Reader activated successfully", HttpStatus.OK);
+    }
+
+    @PatchMapping("/{readerId}/block")
+    public ResponseEntity<String> blockReader(@PathVariable Long readerId) {
+        readerService.blockReader(readerId);
+        return new ResponseEntity<>("Reader blocked successfully", HttpStatus.OK);
+    }
+
 
 }

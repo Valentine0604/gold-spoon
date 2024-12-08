@@ -72,4 +72,31 @@ public class BookService {
 
         return foundBooks;
     }
+
+    public long countBooks() {
+        return bookRepository.count();
+    }
+
+    public List<Book> findByTitle(String title) {
+        return bookRepository.findByTitleContaining(title);
+    }
+
+    public List<Book> getAvailableBooks() {
+        return bookRepository.findByAvailableTrue();
+    }
+
+    public void borrowBook(Long id) {
+        Book book = getBook(id);
+        if (!book.isAvailable()) {
+            throw new RuntimeException("Book is not available");
+        }
+        book.setAvailable(false);
+        bookRepository.save(book);
+    }
+
+    public void returnBook(Long id) {
+        Book book = getBook(id);
+        book.setAvailable(true);
+        bookRepository.save(book);
+    }
 }
